@@ -4,12 +4,14 @@ import { PrivateRoute, PublicOnlyRoute } from "./auth/PrivateRoute";
 import Layout from "./components/Layout";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
+import NewsDetailModal from "./pages/NewsDetailModal";
+import NewsPage from "./pages/NewsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage";
+import SagasPage from "./pages/SagasPage";
+import SagaStoryPage from "./pages/SagaStoryPage";
 import WantedDetailPage from "./pages/WantedDetailPage";
 import WantedPage from "./pages/WantedPage";
-import NewsPage from "./pages/NewsPage";
-import NewsDetailModal from "./pages/NewsDetailModal";
 
 export default function App() {
   return (
@@ -30,6 +32,8 @@ export default function App() {
               <Route path="/news" element={<NewsPage />}>
                 <Route path=":id" element={<NewsDetailModal />} />
               </Route>
+              <Route path="/sagas" element={<SagasPage />} />
+              <Route path="/sagas/:id" element={<SagaStoryPage />} />
             </Route>
           </Route>
 

@@ -1,1 +1,86 @@
 @import "tailwindcss";
+
+/* =========================================================
+   CP5 · Poneglyph Scrollytelling & View Transitions
+   ========================================================= */
+
+@keyframes saga-scroll-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes saga-stage-entry {
+  0% {
+    opacity: 0.45;
+    transform: translateY(18px) scale(0.985);
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* CSS Scroll-driven Animations when supported by the browser */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .saga-css-scroll-progress {
+      transform-origin: 0% 50%;
+      animation: saga-scroll-progress linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .saga-stage-scroll-card {
+      animation: saga-stage-entry linear both;
+      animation-timeline: view(block);
+      animation-range: entry 5% cover 38%;
+    }
+  }
+}
+
+/* Smooth ship & theme transitions when motion is allowed */
+@media (prefers-reduced-motion: no-preference) {
+  .saga-theme-transition {
+    transition:
+      background-color 480ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 380ms ease,
+      border-color 380ms ease;
+  }
+
+  .saga-ship-marker {
+    transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .saga-route-progress {
+    transition: stroke-dashoffset 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+/* Full support for prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .saga-css-scroll-progress,
+  .saga-stage-scroll-card,
+  .saga-theme-transition,
+  .saga-ship-marker,
+  .saga-route-progress {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

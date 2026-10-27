@@ -46,6 +46,12 @@ export function Layout({ children }: LayoutProps) {
               <NavLink to="/wanted" className={navLinkClass}>
                 Se Busca
               </NavLink>
+              <NavLink to="/news" className={navLinkClass}>
+                News Coo
+              </NavLink>
+              <NavLink to="/sagas" className={navLinkClass}>
+                Poneglyph
+              </NavLink>
             </nav>
           </div>
 
