@@ -9,7 +9,6 @@ export interface AuthResponse {
   team: Team;
 }
 
-// Revisa en Swagger qué devuelve GET /auth/me y ajusta si es distinto
 export interface MeResponse { user: User; team: Team; expiresAt: string }
 
 export type LogPoseStatus = "LOCKED" | "UNLOCKED";
@@ -29,9 +28,34 @@ export interface ApiError {
   details?: { field: string; message: string }[];
 }
 
+// ---------- Crews ----------
+export interface Crew {
+  id: string;
+  name: string;
+  shipName: string;
+  jollyRogerColor: string;
+  memberCount: number;
+  totalBounty: number;
+}
+
 // ---------- Wanted ----------
 export type WantedStatus = "AT_LARGE" | "CAPTURED" | "MISSING";
 export type FruitType = "PARAMECIA" | "ZOAN" | "LOGIA" | "NONE";
+export type WantedSort = "bounty,desc" | "name,asc" | "updatedAt,desc";
+export type WantedSize = 10 | 20 | 50;
+
+export type CrewRole =
+  | "CAPTAIN"
+  | "FIRST_MATE"
+  | "NAVIGATOR"
+  | "SNIPER"
+  | "COOK"
+  | "DOCTOR"
+  | "SHIPWRIGHT"
+  | "MUSICIAN"
+  | "ARCHAEOLOGIST"
+  | "HELMSMAN"
+  | "FIGHTER";
 
 export interface WantedSummary {
   id: string;
@@ -40,11 +64,43 @@ export interface WantedSummary {
   bounty: number;
   status: WantedStatus;
   crew: { id: string; name: string } | null;
-  role: string;
-  devilFruit: { name: string; type: FruitType } | null;
+  role: CrewRole | string;
+  devilFruit: { name: string; type: Exclude<FruitType, "NONE"> } | null;
   threatLevel: number;
   lastSeenIsland: string;
   updatedAt: string;
+}
+
+export interface WantedDetail extends WantedSummary {
+  age: number;
+  heightCm: number;
+  bio: string;
+  lastSeen: {
+    island: string;
+    seenAt: string;
+  };
+  bountyHistory: {
+    amount: number;
+    issuedAt: string;
+  }[];
+}
+
+export interface WantedPage {
+  content: WantedSummary[];
+  totalElements: number;
+  totalPages: number;
+  page: number;
+  size: number;
+}
+
+export interface WantedQueryParams {
+  page?: number;
+  size?: WantedSize;
+  status?: WantedStatus;
+  crewId?: string;
+  fruit?: FruitType;
+  q?: string;
+  sort?: WantedSort;
 }
 
 // ---------- Dashboard ----------
@@ -59,14 +115,7 @@ export interface DashboardSummary {
   };
   crews: {
     total: number;
-    mostWanted: {
-      id: string;
-      name: string;
-      shipName: string;
-      jollyRogerColor: string;
-      memberCount: number;
-      totalBounty: number;
-    } | null;
+    mostWanted: Crew | null;
   };
   topBounties: WantedSummary[];
   generatedAt: string;
