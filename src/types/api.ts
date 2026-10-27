@@ -10,7 +10,16 @@ export interface AuthResponse {
 }
 
 // Revisa en Swagger qué devuelve GET /auth/me y ajusta si es distinto
-export interface MeResponse { user: User; team: Team }
+export interface MeResponse { user: User; team: Team; expiresAt: string }
+
+export type LogPoseStatus = "LOCKED" | "UNLOCKED";
+
+export interface LogPose {
+  status: LogPoseStatus;
+  grandLineUnlocked: boolean;
+  unlockedAt: string | null;
+  message: string;
+}
 
 export interface ApiError {
   status: number;
