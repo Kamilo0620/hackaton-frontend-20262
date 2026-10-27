@@ -1,0 +1,9 @@
+{
+  "teamCode": "TEAM-004",
+  "teamName": "NombreUnicoDeSuEquipo",
+  "members": [
+    { "name": "Kamilo Apellido", "code": "202310250" },
+    { "name": "Elías Paz", "code": "202510360" },
+    { "name": "Jasyr Valdez", "code": "202510474" }
+  ]
+}
