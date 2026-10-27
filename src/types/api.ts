@@ -120,3 +120,29 @@ export interface DashboardSummary {
   topBounties: WantedSummary[];
   generatedAt: string;
 }
+
+// ---------- News ----------
+export type NewsStatus = "RUMOR" | "CONFIRMED" | "DEBUNKED";
+
+export interface NewsItem {
+  id: string;
+  title: string;
+  type: string;
+  priority: string;
+  status: NewsStatus;
+  summary?: string;
+  body?: string;
+  publishedAt?: string;
+}
+
+export interface NewsFeed {
+  items: NewsItem[];
+  nextCursor: string | null;
+  hasMore: boolean;
+}
+
+export interface NewsFilters {
+  type: string;
+  priority: string;
+  status: NewsStatus | "";
+}

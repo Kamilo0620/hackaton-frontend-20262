@@ -8,6 +8,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage";
 import WantedDetailPage from "./pages/WantedDetailPage";
 import WantedPage from "./pages/WantedPage";
+import NewsPage from "./pages/NewsPage";
+import NewsDetailModal from "./pages/NewsDetailModal";
 
 export default function App() {
   return (
@@ -25,6 +27,9 @@ export default function App() {
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/wanted" element={<WantedPage />} />
               <Route path="/wanted/:id" element={<WantedDetailPage />} />
+              <Route path="/news" element={<NewsPage />}>
+                <Route path=":id" element={<NewsDetailModal />} />
+              </Route>
             </Route>
           </Route>
 
